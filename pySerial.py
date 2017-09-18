@@ -1,20 +1,17 @@
 import time
 import serial
-
-
-ser=Serial.serial('COM9',9600)
+ser=serial.Serial('COM22',9600)
 c2=0
-a[3]
-while 1:
-    magvalues=ser.read()
-    c=0;
-    for j in range(0,3):
-        for i in range (c+1,len(magvalues)):
-            if magvalues[i]==' ':
-                c2=i
-                break
-        a[j]=float(magvalues[c,c2])
-        c=c2
+magvalues=ser.read()
+ser.flushInput()
+c=0;
+for j in range(0,3):
+    for i in range (c+1,len(magvalues)):
+        if magvalues[i]==" ":
+            c2=i
+            break
+    a[j]=float(magvalues[c:c2])
+    c=c2+1
 Xm, Ym, Zm, heading, declination, headingDegrees, headingFiltered=0.0 
 PI = 3.1415 
 Xm = 2 * a[0] * 0.00092
@@ -35,3 +32,5 @@ if heading > 2*PI:
 headingDegrees = heading * 180/PI 
  
 headingFiltered = headingFiltered*0.85 + headingDegrees*0.15
+
+print magvalues
